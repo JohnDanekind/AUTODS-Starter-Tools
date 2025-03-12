@@ -9,7 +9,7 @@
 This is a rough draft of some potential tools that we can integrate into our final project. It is currently a work in progress and some of the tools are buggy but I plan on refining it more and more. I currently have one agent with the following tools:
 * DataLoader: Loads csv and json files and coverts them to DataFrames
 
-* DataFrame: This tool will give basic summary information about DataFrames or analyze specifc columns of the DataFrame. I plan on refining it later and making it more like the DataFrame tool from the AI-Data-Science-Team repo. 
+* DataFrame: This tool will give basic summary information about DataFrames or analyze specifc columns of the DataFrame. I plan on refining it later and making it more like the DataFrame tool from the AI-Data-Science-Team repo where you can work with multiple Dataframes at once. 
 
 * EDA: Does basic EDA on a DataFrame. Shows basic things like DataFrame shape, DataFrame columns, details about each column both numeric and categorical, common values for DataFrame columns, and missing value information for each column in the DataFrame. 
 
