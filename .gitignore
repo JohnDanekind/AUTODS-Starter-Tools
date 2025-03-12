@@ -191,7 +191,7 @@ data/
 output/
 plots/
 reports/
-*.png
+#*.png
 *.jpg
 *.html
 *.pdf
