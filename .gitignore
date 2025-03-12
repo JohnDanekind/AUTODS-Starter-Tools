@@ -172,3 +172,26 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore virtual environment
+venv/
+
+# Ignore environment variables
+.ebv
+*.env
+.secrets
+
+
+# Ignore data files
+data/*.csv
+data/
+
+
+# Generated output
+output/
+plots/
+reports/
+*.png
+*.jpg
+*.html
+*.pdf

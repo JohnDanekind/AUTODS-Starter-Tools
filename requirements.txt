@@ -1,0 +1,13 @@
+pandas
+numpy
+plotly
+langchain
+langchain-core
+langchain_community
+langchain-experimental
+langchain-anthropic
+langchain-openai
+langgraph >= 0.2.74
+python-dotenv
+matplotlib
+Ipython
