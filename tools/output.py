@@ -3,6 +3,7 @@ from typing_extensions import TypedDict
 import pandas as pd
 from langchain_core.tools import tool
 import os
+
 @tool
 def output_placeholder(input: str) -> str:
     """

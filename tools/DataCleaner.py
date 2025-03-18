@@ -59,7 +59,7 @@ def drop_duplicates(csv_file_path: str, subset: Optional[List[str]] = None) -> p
     print(f"\n {df}")
     return df
 
-# New tools to add
+
 @tool
 def convert_data_types(csv_file_path: str, type_conversions: Dict[str, str]) -> pd.DataFrame:
     """
@@ -90,6 +90,7 @@ def convert_data_types(csv_file_path: str, type_conversions: Dict[str, str]) -> 
     
     print(f"\n {df}")
     return df
+
 
 @tool
 def handle_outliers(csv_file_path: str, columns: List[str], method: str = "iqr", threshold: float = 1.5) -> pd.DataFrame:
@@ -128,9 +129,81 @@ def handle_outliers(csv_file_path: str, columns: List[str], method: str = "iqr",
     print(f"\n {df}")
     return df
 
+# Make normalizing tool 
+# use minmax normalization, standard deviation normalization, and robust normalization
+# use the same input and output format as the other tools
+
+@tool 
+def normalize_data(csv_file_path: str, columns: List[str], method: str = "minmax") -> pd.DataFrame:
+    """
+    Normalize numeric columns in the DataFrame
+
+    Args:
+        csv_file_path (str): _description_
+        columns (List[str]): _description_
+        method (str, optional): _description_. Defaults to "minmax".
+
+    Returns:
+        pd.DataFrame: with normalized columns
+    """
+    df = pd.read_csv(csv_file_path)
+    
+    for column in columns:
+        if column in df.select_dtypes(include=[np.number]).columns:
+            if method == "minmax":
+                min_val = df[column].min()
+                max_val = df[column].max()
+                df[column] = (df[column] - min_val) / (max_val - min_val)
+            elif method == "std":
+                mean = df[column].mean()
+                std = df[column].std()
+                df[column] = (df[column] - mean) / std 
+            elif method == "robust":
+                q1 = df[column].quantile(0.25)
+                q3 = df[column].quantile(0.75)
+                IQR = q3 - q1 
+                df[column] = (df[column] - q1) / IQR
+    
+    print(f"\n {df}")
+    return df
+
+# Make tool for encoding categorical data
+# use one-hot encoding and label encoding
+# use the same input and output format as the other tools
+@tool 
+def encode_categorical_data(csv_file_path: str, columns: List[str], method: str = "label") -> pd.DataFrame:
+    """
+    Encode categorical columns in the DataFrame
+
+    Args:
+        csv_file_path (str): Path to csv file 
+        columns (List[str]): Specify the columns to encode
+        method (str, optional): Specify the encoding method - "onehot" or "label". Defaults to "onehot".
+
+    Returns:
+        pd.DataFrame: with encoded columns
+    """
+    df = pd.read_csv(csv_file_path)
+    
+    for column in columns:
+        if column in df.columns:
+            if method == "onehot":
+                dummies = pd.get_dummies(df[column], prefix=column)
+                df = pd.concat([df, dummies], axis=1)
+                df.drop(column, axis=1, inplace=True)
+            elif method == "label":
+                df[column] = pd.factorize(df[column])[0]
+            
+            elif method == "ordinal":
+                categories = df[column].unique()
+                category_map = {category: i for i, category in enumerate(categories)}
+                df[column] = df[column].map(category_map)  
+    
+    print(f"\n {df}")
+    return df
 
 
-
+            
 
 @tool
 def placeholder_data_cleaning_tool(input: str) -> str:
