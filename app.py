@@ -19,9 +19,7 @@ from tools.DataFrame import simple_df_summary, analyze_column
 from tools.DataLoader import load_file
 from tools.eda import basic_eda
 from tools.visualization import VisualizationTools
-from tools.DataCleaner import placeholder_data_cleaning_tool
-
-
+from tools.DataCleaner import handle_missing_values, drop_duplicates, convert_data_types, handle_outliers
 # Define State for the graph
 class AnalysisState(TypedDict):
     messages: Annotated[list, add_messages]
@@ -124,7 +122,7 @@ def create_statistics_agent(api_key, sample_data_path='./data/rba-subset-int.csv
         mean, stddev, sum_data,
         simple_df_summary, analyze_column,
         load_file, basic_eda,
-        placeholder_data_cleaning_tool,
+        handle_missing_values, drop_duplicates, convert_data_types, handle_outliers,
         *visualization_tools
     ]
 
